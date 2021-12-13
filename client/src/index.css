@@ -1,0 +1,64 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+body {
+  background-color: #FDF3F5;
+
+}
+
+
+/* https://www.w3schools.com/howto/howto_js_topnav.asp */
+/* colours from https://www.w3schools.com/colors/colors_complementary.asp */
+
+.NavBar {
+  background-color: #8CC616;
+  overflow: hidden;
+}
+
+.NavBar a {
+  float: left;
+  color: #29380A;
+  text-align: center;
+  padding: 10px 28px;
+  text-decoration: none;
+  font-size: 18px
+}
+
+.NavBar a:hover {
+  background-color: #9FCF3F;
+  color: black;
+}
+
+.NavBar ul {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.Header {
+  background-color: #FDF3F5;
+  display: flex;
+  justify-content: center;
+}
+
+.Footer {
+  background-color: #29380A;
+  color: #E31F4D;
+  display: flex;
+  justify-content: right;
+  padding: 8px 20px;
+
+  margin-top: 3rem;
+}
