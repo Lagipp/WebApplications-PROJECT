@@ -20,10 +20,10 @@ const PostPage = ({posts}) => {
             {post &&
                 <>
                 <h2> Post body: </h2>
-                <p> {post.body} </p>
+                <pre> {post.body} </pre>
                 <br />
                 <h2> Comments: </h2>
-                <p> temp, here comes comments </p>
+                <p> comment-field for post {post.id}, WIP </p>
                 </>
             }
             {!post &&

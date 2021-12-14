@@ -1,5 +1,6 @@
 import React from 'react'
 import AllPosts from './AllPosts'
+import { Link } from 'react-router-dom'
 
 
 // https://reactjs.org/docs/conditional-rendering.html
@@ -22,6 +23,11 @@ const Home = ({posts}) => {
             
 
             <p> THIS IS THE CONTENT OF 'HOME'</p>
+
+            <nav>
+                <Link to="/post">Go make a new post</Link>
+            </nav>
+
         </div>
     )
 }

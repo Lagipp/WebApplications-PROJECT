@@ -15,8 +15,6 @@ import { useState } from 'react';
 // , useEffect
 
 
-// comments
-
 
 function App() {
   
@@ -40,7 +38,7 @@ function App() {
   // source for { ?: }
 
 
-  // checking if there is a post, if there is, the ID 
+  // checking if there is a post; if there is, the ID 
   // is one larger than the last one in the array
   // if there's no posts, we assign it ID 1
 
@@ -52,12 +50,10 @@ function App() {
       : 1;
     
     const newPost = { id, body: newBody };
-
     const allPosts = [...posts, newPost];
 
     setPosts(allPosts);
     setNewBody('');
-
   }
 
 
