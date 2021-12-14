@@ -13,8 +13,14 @@ const PostNew = ({handleSubmit, newBody, setNewBody}) => {
             <form onSubmit={handleSubmit}>
                 <label htmlFor="newBody"> Post: </label>
                 <br />
-                <textArea placeholder="Post something" id="newBody" type="text" onChange={(e) => setNewBody(e.target.value)} value={newBody} />
-
+                <textArea 
+                    placeholder="Post something" 
+                    id="newBody" 
+                    type="text" 
+                    rows="4" cols="40" 
+                    onChange={(e) => setNewBody(e.target.value)} 
+                    value={newBody} />
+                <br />
                 <button type="submit"> Submit </button>
             </form>
 

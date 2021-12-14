@@ -7,7 +7,7 @@ const SinglePost = ({post}) => {
         <article className="SinglePost">
             <p> post no. {post.id}:
             <Link to={`/post/${post.id}`}>
-                <pre> {post.body} </pre> 
+                <pre>{post.body}</pre> 
             </Link>
             </p>
         </article>
