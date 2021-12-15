@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -10,7 +12,7 @@ var usersRouter = require('./routes/users');
 var app = express();
 
 
-const mongoDB = "mongodb://localhost:27017/webapp-project"
+const mongoDB = "mongodb://localhost:27017/webappproject"
 mongoose.connect(mongoDB);
 mongoose.Promise = Promise;
 const db = mongoose.connection;
