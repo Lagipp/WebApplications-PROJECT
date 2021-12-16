@@ -18,16 +18,27 @@ router.get('/listofusers', validateToken, (req, res, next) => {
 
 });
 
+router.get('/listx', (req, res) => {
+  User.find({}, (err, users) => {
+    console.log(users);
+  });
+  res.json({status: "ok"})
+});
+
+
 
 router.get('/login', (req, res, next) => {
-  res.render('login');
+
 });
 
 
 router.post('/login', 
   body("username").trim().escape(),
   body("password").escape(),
+
   (req, res, next) => {
+    console.log("req.body of /login router.post:" + req.body);
+
     User.findOne({username: req.body.username}, (err, user) => {
       if(err) throw err;
       if(!user) {
@@ -40,6 +51,8 @@ router.post('/login',
               id: user._id,
               username: user.username
             }
+            console.log("process.env.SECRET: " + process.env.SECRET)
+
             jwt.sign(
               jwtPayload,
               process.env.SECRET,
@@ -60,7 +73,6 @@ router.post('/login',
 
 
 router.get('/register', (req, res, next) => {
-  res.render('register');
 });
 
 
@@ -70,7 +82,6 @@ router.post('/register',
   (req, res, next) => 
   {
     const errors = validationResult(req);
-
     if(!errors.isEmpty()) 
     {
       return res.status(400).json({errors: errors.array()});
@@ -78,7 +89,7 @@ router.post('/register',
 
     User.findOne({username: req.body.username}, (err, user) => 
     {
-      if(err) throw err;
+      if(err) { console.log(err); throw err; };
 
       if(user) 
       {
@@ -101,7 +112,7 @@ router.post('/register',
               (err, ok) => 
               {
                 if(err) throw err;
-                return res.redirect("/login");
+                return res.redirect("users/login");
               }
 
             );

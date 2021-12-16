@@ -12,13 +12,19 @@ import Footer from './components/Footer';
 import Temp from './components/Temp';
 import UserList from './components/UserList';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 // , useEffect
 
 
 
 function App() {
   
+  const [data, setData] = useState([])
+  const [jwt, setJwt] = useState("")
+  const [user, setUser] = useState({})
+
+
+
   const [posts, setPosts] = useState([
     {
       id: 1,
@@ -65,11 +71,13 @@ function App() {
         <Header />
         <NavBar />
 
+        <h2> {jwt ? `Logged in as ${user.username}!` : ""} </h2>
+
         <Routes>
 
           <Route exact path="/" element={ <Home posts={posts} /> } />
           <Route path="/register" element={ <Register /> } />
-          <Route path="/login" element={ <Login /> } />
+          <Route path="/login" element={ <Login setJwt={setJwt} setUser={setUser} jwt={jwt} /> } />
 
           <Route exact path="/post" element={ <PostNew handleSubmit={handleSubmit} newBody={newBody} setNewBody={setNewBody} /> } />
           <Route path="/post/:id" element={ <PostPage posts={posts}/> } />
