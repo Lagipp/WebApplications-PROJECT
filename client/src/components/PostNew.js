@@ -5,11 +5,7 @@ import { Link } from 'react-router-dom'
 // allowing an authenticated user to make new posts
 
 
-const PostNew = ({handleSubmit, newBody, setNewBody}) => {
-    return (
-        <div className="PostNew">
-            <h2> Make a new post </h2>
-
+/*
             <form onSubmit={handleSubmit}>
                 <label htmlFor="newBody"> Post: </label>
                 <br />
@@ -23,6 +19,13 @@ const PostNew = ({handleSubmit, newBody, setNewBody}) => {
                 <br />
                 <button type="submit"> Submit </button>
             </form>
+*/
+
+
+const PostNew = () => {
+    return (
+        <div className="PostNew">
+            <h2> Make a new post </h2>
 
             <nav>
                 <Link to="/">Go back to index</Link>

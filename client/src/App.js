@@ -19,12 +19,20 @@ import { useState, useEffect } from 'react';
 
 function App() {
   
-  const [data, setData] = useState([])
+  const [posts, setPosts] = useState([])
   const [jwt, setJwt] = useState("")
   const [user, setUser] = useState({})
+  
 
+  useEffect(() => {
+    fetch("/api/post")
+    .then(response => response.json())
+    .then(json => setPosts(json))
+  }, [])
+  
+  //const [newBody, setNewBody] = useState('');
 
-
+/*
   const [posts, setPosts] = useState([
     {
       id: 1,
@@ -36,9 +44,9 @@ function App() {
       body: "print(f'Meaning of life: {value}')"
     }
   ])
+*/
 
 
-  const [newBody, setNewBody] = useState('');
 
 
   // https://reactjs.org/docs/conditional-rendering.html
@@ -49,6 +57,8 @@ function App() {
   // is one larger than the last one in the array
   // if there's no posts, we assign it ID 1
 
+
+  /*
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -62,6 +72,10 @@ function App() {
     setPosts(allPosts);
     setNewBody('');
   }
+  */
+
+
+  //handleSubmit={handleSubmit} newBody={newBody} setNewBody={setNewBody}
 
 
   return (
@@ -79,8 +93,8 @@ function App() {
           <Route path="/register" element={ <Register /> } />
           <Route path="/login" element={ <Login setJwt={setJwt} setUser={setUser} jwt={jwt} /> } />
 
-          <Route exact path="/post" element={ <PostNew handleSubmit={handleSubmit} newBody={newBody} setNewBody={setNewBody} /> } />
-          <Route path="/post/:id" element={ <PostPage posts={posts}/> } />
+          <Route exact path="/post" element={ <PostNew  /> } />
+          <Route path="/post/:id" element={ <PostPage /> } />
           <Route path="/listofusers" element={ <UserList /> } />
           <Route path="*" element={ <Temp /> } />
 

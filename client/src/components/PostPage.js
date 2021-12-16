@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom';
 
 
@@ -7,16 +7,8 @@ import { useParams, Link } from 'react-router-dom';
 // code doesn't work without it even though it should, idk this solved it
 
 
-
-
-const PostPage = ({posts}) => {
-
-    const { id } = useParams();
-    const post = posts.find(post => (post.id).toString() === id);
-
-    return (
-        <div className="PostPage">
-            <article>
+/*
+<article>
             {post &&
                 <>
                 <h2> Post body: </h2>
@@ -33,8 +25,37 @@ const PostPage = ({posts}) => {
                 </>
             }
             </article>
+            */
+
+
+const PostPage = () => {
+
+    const { id } = useParams();
+    //const post = posts.find(post => (post.id).toString() === id);
+
+    const [post, setPost] = useState("");
+
+
+    useEffect(() => {
+        fetch("/api/post/" + id)
+        .then(response => response.json())
+        .then(json => setPost(json))
+
+    }, [id])
+
+
+
+    return (
+        <div className="PostPage">
             
-            
+            <>
+            <h2> Post body: </h2>
+            <pre> {post.body} </pre>
+            <br />
+            <h2> Comments: </h2>
+            <p> comment-field for post {post.id}, WIP </p>
+            </>
+
             <nav>
                 <Link to="/">Go back to index</Link>
             </nav>
