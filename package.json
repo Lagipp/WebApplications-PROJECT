@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/Lagipp/WebApplications-PROJECT#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "react-router-dom": "^6.0.2"
   }
 }
