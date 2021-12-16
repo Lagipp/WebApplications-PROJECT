@@ -1,5 +1,5 @@
 var express = require('express');
-var router = express.Router;
+var router = express.Router();
 
 const posts =[
     {"id": 1, "body": "print('Hello World!')"},

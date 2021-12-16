@@ -31,10 +31,15 @@ const Login = ({ setJwt, setUser, jwt} ) => {
         setUserData({...userData, [event.target.name]: event.target.value})
     }
 
+/*
+    console.log(`>:DEBUG_  userData in 'Login.js' is ${userData}`)
+    console.log(`>:DEBUG_  userData.username in 'Login.js' is ${userData.username}`)
+    console.log(`>:DEBUG_  userData.password in 'Login.js' is ${userData.password}`)
+*/
 
     return (
         <div>
-            <h2> Login page </h2>
+            <h2> {jwt ? `Logged in as ${userData.username}!` : "Login page"} </h2>
             <form className="LoginForm" onSubmit={submit} onChange={handleChange}>
                 <input type="text" name="username" />
                 <input type="password" name="password" />

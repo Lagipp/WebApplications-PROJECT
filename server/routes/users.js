@@ -2,6 +2,7 @@
 var express = require('express');
 var router = express.Router();
 const bcrypt = require("bcryptjs");
+const mongoose = require("mongoose");
 const { body, validationResult } = require("express-validator");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
@@ -13,7 +14,7 @@ const validateToken = require("../auth/validateToken.js");
 router.get('/listofusers', validateToken, (req, res, next) => {
   User.find({}, (err, users) => {
     if(err) return next(err);
-    res.render("users", {users});
+    res.json(users);
   })
 
 });
@@ -26,20 +27,24 @@ router.get('/listx', (req, res) => {
 });
 
 
-
+/*
 router.get('/login', (req, res, next) => {
 
 });
-
-
-router.post('/login', 
+*/
+/*
   body("username").trim().escape(),
   body("password").escape(),
+*/
 
+router.post('/login', 
+  
   (req, res, next) => {
-    console.log("req.body of /login router.post:" + req.body);
+    console.log("")
+    console.log("*******************************************")
+    console.log("req.body of /login router.post:" + JSON.stringify(req.body));
 
-    User.findOne({username: req.body.username}, (err, user) => {
+    User.findOne({username: req.body.password}, (err, user) => {
       if(err) throw err;
       if(!user) {
         return res.status(403).json({message: "Login failed"});
@@ -51,6 +56,7 @@ router.post('/login',
               id: user._id,
               username: user.username
             }
+            console.log("")
             console.log("process.env.SECRET: " + process.env.SECRET)
 
             jwt.sign(
@@ -65,19 +71,23 @@ router.post('/login',
             );
 
             res.json({success: true});
+            console.log("")
+            console.log("ÅÅ succesfully logged in as: " + req.body.username + " with password: " + req.body.password)
+            console.log("*******************************************")
+            console.log("")
           }
         })
       }
     })
 });
 
-
+/*
 router.get('/register', (req, res, next) => {
 });
-
+*/
 
 router.post('/register', 
-  body("username").isLength({min: 3}).trim(),
+  body("username").isLength({min: 3}).trim().escape(),
   body("password").isLength({min: 3}),
   (req, res, next) => 
   {
@@ -112,7 +122,7 @@ router.post('/register',
               (err, ok) => 
               {
                 if(err) throw err;
-                return res.redirect("users/login");
+                return res.redirect("/users/login");
               }
 
             );
