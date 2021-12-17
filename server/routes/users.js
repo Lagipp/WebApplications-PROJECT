@@ -7,6 +7,7 @@ const { body, validationResult } = require("express-validator");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const validateToken = require("../auth/validateToken.js");
+const { validate } = require('../models/User');
 
 
 
@@ -131,6 +132,26 @@ router.post('/register',
       };
     });
 });
+
+
+router.post("/post", validateToken, (req, res, next) => 
+{
+  console.log("user" + req.body.username + "is making a new post")
+
+  Post.create(
+    {
+      username: req.body.username,
+      postbody: req.body.body
+    },
+
+    (err, ok) => 
+    {
+      if(err) throw err;
+      return res.redirect("/");
+    }
+  )
+})
+
 
 
 module.exports = router;

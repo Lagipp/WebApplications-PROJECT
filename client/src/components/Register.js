@@ -29,8 +29,9 @@ const Register = () => {
 
 
     return (
-        <div>
+        <div className="Register">
             <h2> Register page </h2>
+            
             <form className="RegisterForm" onSubmit={submit} onChange={handleChange}>
                 <input type="text" name="username" />
                 <input type="password" name="password" />

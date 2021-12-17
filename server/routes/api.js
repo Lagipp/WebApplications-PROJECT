@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const posts =[
+const data =[
     {"id": 1, "body": "print('Hello World!')"},
     {"id": 2, "body": "print(f'Meaning of life: {value}')"}
 ];

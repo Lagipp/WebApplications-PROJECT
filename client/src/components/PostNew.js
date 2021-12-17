@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 
@@ -23,10 +23,41 @@ import { Link } from 'react-router-dom'
 
 
 const PostNew = () => {
+
+    const[post, setPost] = useState([])
+
+    const submit = (event) => {
+        event.preventDefault()
+        console.log(">> DEBUG: inside submit-function in PostNew.js")
+
+        fetch("users/post", {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify(post),
+            mode: "cors"
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+        })
+    }
+
+    const handleChange = (event) => {
+        setPost({...post, [event.target.name]: event.target.value})
+    }
+
     return (
         <div className="PostNew">
             <h2> Make a new post </h2>
 
+            <form className="CreatePostForm" onSubmit={submit} onChange={handleChange}>
+                <input type="text" name="postbody" />
+                <input type="submit" />
+            </form>
+
+            <br />
             <nav>
                 <Link to="/">Go back to index</Link>
             </nav>
