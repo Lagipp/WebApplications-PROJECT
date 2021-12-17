@@ -42,6 +42,7 @@ const PostNew = () => {
         .then(data => {
             console.log(data)
         })
+        console.log("--- User submitted post successfully")
     }
 
     const handleChange = (event) => {

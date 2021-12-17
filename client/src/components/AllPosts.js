@@ -4,7 +4,7 @@ import SinglePost from './SinglePost'
 const AllPosts = ({posts}) => {
     return (
         <>
-          {posts.map(post => ( <SinglePost key={post.id} post={post} /> ))}  
+          {posts.map(post => ( <SinglePost key={post.postID} post={post} /> ))}  
         </>
     )
 }

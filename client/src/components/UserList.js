@@ -7,13 +7,11 @@ const UserList = () => {
             
             <table>
                 <tr>
-                    <th> # </th>
                     <th> ID </th>
                     <th> Username </th>
                     <th> Password</th>
                 </tr>
                 <tr>
-                    <td></td>
                     <td> User.ID </td>
                     <td> User.username </td>
                     <td> User.password </td>

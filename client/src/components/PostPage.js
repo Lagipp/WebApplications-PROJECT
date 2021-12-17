@@ -2,24 +2,22 @@ import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom';
 
 
-// https://stackoverflow.com/questions/40682064/what-does-operator-indicate-with-this-props-children-react-cloneelemen
-// source for the {post &&} 
-// code doesn't work without it even though it should, idk this solved it
-
-
-
 const PostPage = () => {
 
-    const { id } = useParams();
     //const post = posts.find(post => (post.id).toString() === id);
 
+
+
+    const { id } = useParams();
     const [post, setPost] = useState("");
 
 
     useEffect(() => {
-        fetch("/api/post/" + id)
+        fetch("/users/post/" + id)
         .then(response => response.json())
-        .then(json => setPost(json))
+        .then(json => {
+            setPost(json);
+            console.log("inside fetch() of PostPage.js, JSON = " + json)})
 
     }, [id])
 
@@ -30,10 +28,10 @@ const PostPage = () => {
             
             <>
             <h2> Post body: </h2>
-            <pre> {post.body} </pre>
+            <pre> {post.postbody} </pre>
             <br />
             <h2> Comments: </h2>
-            <p> comment-field for post {post.id}, WIP </p>
+            <p> comment-field for post {post.postID}, WIP </p>
             </>
 
             <nav>

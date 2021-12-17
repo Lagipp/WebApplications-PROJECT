@@ -7,7 +7,7 @@ const Login = ({ setJwt, setUser, jwt} ) => {
 
     const submit = (event) => {
         event.preventDefault()
-        console.log("->->- inside submit-function in Login.js")
+        console.log(">> inside submit-function in client/Login.js")
 
         fetch("/users/login", {
             method: "POST",
@@ -19,10 +19,14 @@ const Login = ({ setJwt, setUser, jwt} ) => {
         })
         .then(response => response.json())
         .then(data => {
-            console.log(data)
+            //console.log(">> DEBUG: DATA TOKEN IS " + data.token)
+            
             if(data.token) {
                 setJwt(data.token)
                 setUser(JSON.parse(Buffer.from(data.token.split(".")[1], "base64").toString()))
+
+                //console.log(">> DEBUG: USERNAME IS : " + userData.username)
+                //console.log(">> ''SECOND'' DEBUG: data.token is " + data.token)
             }
         })  
     }
@@ -31,15 +35,13 @@ const Login = ({ setJwt, setUser, jwt} ) => {
         setUserData({...userData, [event.target.name]: event.target.value})
     }
 
-/*
-    console.log(`>:DEBUG_  userData in 'Login.js' is ${userData}`)
-    console.log(`>:DEBUG_  userData.username in 'Login.js' is ${userData.username}`)
-    console.log(`>:DEBUG_  userData.password in 'Login.js' is ${userData.password}`)
-*/
+    //<h2> {jwt ? `Logged in as ${userData.username}!` : "Login page"} </h2>
 
     return (
         <div>
-            <h2> {jwt ? `Logged in as ${userData.username}!` : "Login page"} </h2>
+
+            <h2> Login page </h2>
+
             <form className="LoginForm" onSubmit={submit} onChange={handleChange}>
                 <input type="text" name="username" />
                 <input type="password" name="password" />

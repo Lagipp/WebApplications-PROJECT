@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom'
 const SinglePost = ({post}) => {
     return (
         <article className="SinglePost">
-            <p> post no. {post.id}:
-            <Link to={`/post/${post.id}`}>
-                <pre>{post.body}</pre> 
+            <p> post no. {post.postID}:
+            <Link to={`/post/${post.postID}`}>
+                <pre>{post.postbody}</pre> 
             </Link>
             </p>
         </article>

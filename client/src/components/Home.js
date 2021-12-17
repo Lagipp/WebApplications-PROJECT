@@ -15,9 +15,18 @@ import { Link } from 'react-router-dom'
 const Home = ({posts}) => {
     return (
         <div className="Home">
+
             {posts.length 
-            ? ( <AllPosts posts={posts} /> )
-            : ( <p> There are no posts :( </p> )
+            ?                               /* if posts */
+            ( <>
+                <h2> All posts </h2> 
+                <AllPosts posts={posts} /> 
+              </> )
+
+            :                               /* else if no posts */
+            (
+                <p> There are no posts :( </p> 
+            )
             }
 
             

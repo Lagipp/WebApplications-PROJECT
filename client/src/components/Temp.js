@@ -1,10 +1,16 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Temp = () => {
     return (
         <div>
-            <p> this shit don't work :/ </p>
+            <h2> 404: not a proper URL </h2>
+            
+            <nav>
+            <Link to="/">Go back to index</Link>
+            </nav>
         </div>
+
     )
 }
 

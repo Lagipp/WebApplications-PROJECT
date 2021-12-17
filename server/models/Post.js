@@ -2,13 +2,12 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
+
 let postSchema = new Schema ({
-    username: {type: String},
+    postID: {type: Number},
     postbody: {type: String},
 
-    comments: [{ username: {type: String}, 
-                 commentbody: {type: String}
-                }]
+    comments: [ {commentbody: {type: String}} ]
 });
 
 module.exports = mongoose.model("posts", postSchema);

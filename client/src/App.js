@@ -13,7 +13,6 @@ import Temp from './components/Temp';
 import UserList from './components/UserList';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-// , useEffect
 
 
 
@@ -25,57 +24,16 @@ function App() {
   
 
   useEffect(() => {
-    fetch("/api/post")
+    fetch("/users/post")
     .then(response => response.json())
     .then(json => setPosts(json))
   }, [])
   
-  //const [newBody, setNewBody] = useState('');
-
-/*
-  const [posts, setPosts] = useState([
-    {
-      id: 1,
-      body: "print('Hello World!')"
-    },
-
-    {
-      id: 2,
-      body: "print(f'Meaning of life: {value}')"
-    }
-  ])
-*/
-
-
-
-
-  // https://reactjs.org/docs/conditional-rendering.html
-  // source for { ?: }
-
-
-  // checking if there is a post; if there is, the ID 
-  // is one larger than the last one in the array
-  // if there's no posts, we assign it ID 1
-
-
-  /*
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    const id = posts.length 
-      ? posts[posts.length - 1].id + 1 
-      : 1;
-    
-    const newPost = { id, body: newBody };
-    const allPosts = [...posts, newPost];
-
-    setPosts(allPosts);
-    setNewBody('');
-  }
-  */
-
 
   //handleSubmit={handleSubmit} newBody={newBody} setNewBody={setNewBody}
+  //<h2> {jwt ? `Logged in as ${user.username}!` : ""} </h2>
+
+  //console.log(">> DBG: in client/App.js; posts are: " + JSON.stringify(posts))
 
 
   return (
@@ -106,5 +64,48 @@ function App() {
     </Router>
   );
 }
+
+
+
+// https://reactjs.org/docs/conditional-rendering.html
+  // source for { ?: }
+
+
+  // checking if there is a post; if there is, the ID 
+  // is one larger than the last one in the array
+  // if there's no posts, we assign it ID 1
+
+
+  /*
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const id = posts.length 
+      ? posts[posts.length - 1].id + 1 
+      : 1;
+    
+    const newPost = { id, body: newBody };
+    const allPosts = [...posts, newPost];
+
+    setPosts(allPosts);
+    setNewBody('');
+  }
+  */
+
+//const [newBody, setNewBody] = useState('');
+
+/*
+  const [posts, setPosts] = useState([
+    {
+      id: 1,
+      body: "print('Hello World!')"
+    },
+
+    {
+      id: 2,
+      body: "print(f'Meaning of life: {value}')"
+    }
+  ])
+*/
 
 export default App;

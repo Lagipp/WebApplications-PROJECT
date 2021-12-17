@@ -3,7 +3,8 @@ var router = express.Router();
 
 const data =[
     {"id": 1, "body": "print('Hello World!')"},
-    {"id": 2, "body": "print(f'Meaning of life: {value}')"}
+    {"id": 2, "body": "print(f'Meaning of life: {value}')"},
+    {"id": 3, "body": "plain text"}
 ];
 
 
