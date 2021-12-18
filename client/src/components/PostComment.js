@@ -14,7 +14,7 @@ const PostComment = () => {
         fetch("/users/comment/" + id, {
             method: "POST",
             headers: {
-                "Content-type": "applications/json"
+                "Content-Type": "application/json"
             },
             body: JSON.stringify(comment),
             mode: "cors"

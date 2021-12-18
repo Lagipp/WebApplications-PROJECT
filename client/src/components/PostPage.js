@@ -15,6 +15,7 @@ const PostPage = ( {posts, comments} ) => {
     console.log("comment.OGpostID is : " + JSON.stringify(comment.OGpostID)) */
     //console.log("comment.commentbody is : " + JSON.stringify(comment.commentbody))
     console.log("comment is : " + JSON.stringify(comment))
+    console.log("comment.commentbody is : " + JSON.stringify(comment.commentbody))
 
 /*    
 {comment.map(com => <Card key={com.OGpostID} >
@@ -41,11 +42,8 @@ const PostPage = ( {posts, comments} ) => {
                 {comment &&
                     <>
                     <div>
-                        <h4> comments with ID of {comment.OGh5ostID}</h4>
-                        <p> same as above: {post.postbody} </p>
-                        <p> with the ID: {post.postID} </p>
-                        <p> comment has body: {comment.commentbody} </p>
-                        <p> comment has ID: {comment.OGpostID} </p>
+                        <h4> comments with ID of {comment.OGpostID}</h4>
+                        <p> {comment.commentbody} </p>
                         
                     </div>
                     </>
