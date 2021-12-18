@@ -14,13 +14,6 @@ const validateToken = require("../auth/validateToken.js");
 
 
 /* GET users listing. */
-router.get('/listofusers', validateToken, (req, res, next) => {
-  User.find({}, (err, users) => {
-    if(err) return next(err);
-    res.json(users);
-  })
-
-});
 
 
 router.post('/login', 
@@ -128,7 +121,7 @@ router.get("/post", (req, res, next) => {
       return res.json(posts);
     } else 
     {
-      return res.status(404).send("No posts found!");
+      return res.status(404).send("xx No posts found!");
     }
   })
 })
@@ -160,7 +153,7 @@ router.post("/post", (req, res, next) =>
         return res.redirect("/");
       }
     )
-})
+  })
 })
 
 
@@ -174,26 +167,29 @@ router.get("/comment", (req, res, next) => {
       return res.json(comments);
     } else 
     {
-      return res.status(404).send("No comments found!");
+      return res.status(404).send("xx No comments found!");
     }
   })
 })
 
 
-router.post("/comment", (req, res, next) => 
+router.post("/comment/:id", (req, res, next) => 
 {
   
   Comment.find({}, (err, comments) => 
   {
     if(err) return next(err);
 
+    console.log("")
     console.log("<< DBG: comments.length = " + comments.length)
+    console.log(">> req.params.id has value: " + req.params.id)
+    console.log("<< req.body has value: " + JSON.stringify(req.body))
+    console.log("<< req.body.OGpostID has value: " + JSON.stringify(req.body.OGpostID))
+    console.log("<< req.body.commentbody has value: " + JSON.stringify(req.body.commentbody))
+    console.log("")
 
-    let id = comments.length
-    ? comments[comments.length - 1].OGpostID + 1
-    : 1;
+    let id = req.params.id
     
-
     Comment.create(
       {
         OGpostID: id,

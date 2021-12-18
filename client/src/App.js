@@ -10,7 +10,6 @@ import PostPage from './components/PostPage';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import Temp from './components/Temp';
-import UserList from './components/UserList';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
@@ -25,13 +24,13 @@ function App() {
   
 
   useEffect(() => {
-    fetch("/users/post")
+    fetch("/users/post/")
     .then(response => response.json())
     .then(json => setPosts(json))
   }, [])
 
   useEffect(() => {
-    fetch("/users/comment")
+    fetch("/users/comment/")
     .then(response => response.json())
     .then(json => setComments(json))
   }, [])
@@ -60,7 +59,6 @@ function App() {
 
           <Route exact path="/post" element={ <PostNew  /> } />
           <Route path="/post/:id" element={ <PostPage posts={posts} comments={comments} /> } />
-          <Route path="/listofusers" element={ <UserList /> } />
           <Route path="*" element={ <Temp /> } />
 
         </Routes>

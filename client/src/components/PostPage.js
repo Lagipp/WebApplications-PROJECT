@@ -1,14 +1,30 @@
 //import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom';
 import PostComment from './PostComment';
-import { Card } from 'react-bootstrap'
+//import { Card } from 'react-bootstrap'
 
 
 const PostPage = ( {posts, comments} ) => {
 
     const { id } = useParams();
-    const post = posts.find(post => (post.postID).toString() === id);
-    const comment = comments.find(comment => (comment.OGpostID).toString() === id);
+    const post = posts.find(p => (p.postID).toString() === id);
+    const comment = comments.find(c => (c.OGpostID).toString() === id);
+
+/*
+    console.log("comments found are : " + JSON.stringify(comment))
+    console.log("comment.OGpostID is : " + JSON.stringify(comment.OGpostID)) */
+    //console.log("comment.commentbody is : " + JSON.stringify(comment.commentbody))
+    console.log("comment is : " + JSON.stringify(comment))
+
+/*    
+{comment.map(com => <Card key={com.OGpostID} >
+                            <Card.Body>
+                                <Card.Text>
+                                    {com.commentbody}
+                                </Card.Text>
+                            </Card.Body>
+                        </Card> )}
+*/
 
 
     return (
@@ -17,7 +33,7 @@ const PostPage = ( {posts, comments} ) => {
            <article>
             {post &&
                 <>
-                <h2> Post body: </h2>
+                <h2> Post body for post # {post.postID} </h2>
                 <pre> {post.postbody} </pre>
                 <br />
                 <h2> Comments: </h2>
@@ -25,25 +41,25 @@ const PostPage = ( {posts, comments} ) => {
                 {comment &&
                     <>
                     <div>
-                        {comment.map(com => <Card key={com.OGpostID} >
-                            <Card.Body>
-                                <Card.Text>
-                                    {com.commentbody}
-                                </Card.Text>
-                            </Card.Body>
-                        </Card> )}
+                        <h4> comments with ID of {comment.OGh5ostID}</h4>
+                        <p> same as above: {post.postbody} </p>
+                        <p> with the ID: {post.postID} </p>
+                        <p> comment has body: {comment.commentbody} </p>
+                        <p> comment has ID: {comment.OGpostID} </p>
+                        
                     </div>
                     </>
                 }
 
                 {!comment &&
                     <>
-                    <h4> No comments found </h4>
+                    <h4> No comments found for this post</h4>
                     <p> shit sucks :/ </p>
                     </>
                 }
 
                 <PostComment />
+                <br />
                 </>
             }
             {!post &&

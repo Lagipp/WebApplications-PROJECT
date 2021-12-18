@@ -10,7 +10,7 @@ const PostNew = () => {
         event.preventDefault()
         console.log(">> DEBUG: inside submit-function in PostNew.js")
 
-        fetch("users/post", {
+        fetch("/users/post", {
             method: "POST",
             headers: {
                 "Content-type": "application/json"
@@ -20,10 +20,11 @@ const PostNew = () => {
         })
         .then(response => response.json())
         .then(data => {
-            console.log(data)
+            console.log(data + "after fetch in NEW post")
         })
         
         console.log("--- User submitted post successfully")
+        console.log(post)
     }
 
     const handleChange = (event) => {
