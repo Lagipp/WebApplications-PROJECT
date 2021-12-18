@@ -7,7 +7,6 @@ let postSchema = new Schema ({
     postID: {type: Number},
     postbody: {type: String},
 
-    comments: [ {commentbody: {type: String}} ]
 });
 
 module.exports = mongoose.model("posts", postSchema);

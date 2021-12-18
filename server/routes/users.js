@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const { body, validationResult } = require("express-validator");
 const User = require("../models/User");
 const Post = require("../models/Post");
+const Comment = require("../models/Comment");
 const jwt = require("jsonwebtoken");
 const validateToken = require("../auth/validateToken.js");
 
@@ -21,23 +22,6 @@ router.get('/listofusers', validateToken, (req, res, next) => {
 
 });
 
-router.get('/listx', (req, res) => {
-  User.find({}, (err, users) => {
-    console.log(users);
-  });
-  res.json({status: "ok"})
-});
-
-
-/*
-router.get('/login', (req, res, next) => {
-
-});
-*/
-/*
-  body("username").trim().escape(),
-  body("password").escape(),
-*/
 
 router.post('/login', 
   
@@ -74,8 +58,6 @@ router.post('/login',
               }
             );
 
-              
-
             //res.json({success: true});    // TOMMI KUNNARI HELPED ME BY SAYING THIS LINE NEEDS TO BE REMOVED!!!!!!!!
             console.log("")
             console.log(`<< DEBUG: succesfully logged in as: '${req.body.username}' with password: '${req.body.password}'`)
@@ -87,10 +69,6 @@ router.post('/login',
     })
 });
 
-/*
-router.get('/register', (req, res, next) => {
-});
-*/
 
 router.post('/register', 
   body("username").isLength({min: 3}).trim().escape(),
@@ -158,9 +136,6 @@ router.get("/post", (req, res, next) => {
 
 router.post("/post", (req, res, next) => 
 {
-  //console.log("user" + req.body.username + "is making a new post")
-  //console.log(JSON.stringify(">> DBG: req.body inside users.js router.post('/post') is: " + JSON.stringify(req.body)))
-
   
   Post.find({}, (err, posts) => 
   {
@@ -188,18 +163,88 @@ router.post("/post", (req, res, next) =>
 })
 })
 
+
+router.get("/comment", (req, res, next) => {
+  Comment.find({}, (err, comments) => 
+  {
+    if(err) return next(err);
+    
+    if(comments) 
+    {
+      return res.json(comments);
+    } else 
+    {
+      return res.status(404).send("No comments found!");
+    }
+  })
+})
+
+
+router.post("/comment", (req, res, next) => 
+{
+  
+  Comment.find({}, (err, comments) => 
+  {
+    if(err) return next(err);
+
+    console.log("<< DBG: comments.length = " + comments.length)
+
+    let id = comments.length
+    ? comments[comments.length - 1].OGpostID + 1
+    : 1;
+    
+
+    Comment.create(
+      {
+        OGpostID: id,
+        commentbody: req.body.commentbody
+      },
+
+      (err, ok) => 
+      {
+        if(err) throw err;
+        return res.redirect("/");
+      }
+    )
+  })
+})
+
 //const post = posts.find(post => (post.id).toString() === id);
 
-router.get('/post/:id', function(req, res, next) {
+/*
+router.get('post/:id', (req, res, next) => {
+  console.log(">>dbg: inside router.get('post/:id'), req.params.id =" + req.params.id)
+
+  const desiredPost = Post.findById(req.params.id)
   
-  console.log("<< dbg: in router.get('/post/:id)")
-  console.log("req.body = " + JSON.stringify(req.body))
-  console.log(">> req.body.postbody = " + JSON.stringify(req.body.postbody))
-  console.log(">> req.body.postID = " + JSON.stringify(req.body.postID))
+  Comment.find({OGpostID: req.params.id}, (err, commentsAll) => {
+    console.log("<< dbg: inside 'Comment.find' in router.get('post/:id')")
 
-  res.json(data.find(post => (post.postID).toString() === req.params.id));
+    if(err) throw err;
+    console.log("found comments are: " + commentsAll)
+    return res.json({posts: desiredPost, comments: commentsAll })
+  })
 });
+*/
+
+/*
+router.post('post/:id', (req, res, next) => {
+
+  const desiredUser = User.findById(req.params.id)
 
 
+  Comment.create(
+    {
+      OGpostID: req.params.id,
+      commentbody: req.body.commentbody,
+      commentuser: desiredUser.username
+    },
+    (err, ok) => {
+      if(err) throw err;
+      return res.json({message: "comment creation succesfully"});
+    }
+  );
+});
+*/
 
 module.exports = router;

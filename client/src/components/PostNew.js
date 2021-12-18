@@ -2,26 +2,6 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 
-// allowing an authenticated user to make new posts
-
-
-/*
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="newBody"> Post: </label>
-                <br />
-                <textArea 
-                    placeholder="Post something" 
-                    id="newBody" 
-                    type="text" 
-                    rows="4" cols="40" 
-                    onChange={(e) => setNewBody(e.target.value)} 
-                    value={newBody} />
-                <br />
-                <button type="submit"> Submit </button>
-            </form>
-*/
-
-
 const PostNew = () => {
 
     const[post, setPost] = useState([])
@@ -42,6 +22,7 @@ const PostNew = () => {
         .then(data => {
             console.log(data)
         })
+        
         console.log("--- User submitted post successfully")
     }
 
@@ -65,5 +46,27 @@ const PostNew = () => {
         </div>
     )
 }
+
+
+
+// allowing an authenticated user to make new posts
+
+
+/*
+            <form onSubmit={handleSubmit}>
+                <label htmlFor="newBody"> Post: </label>
+                <br />
+                <textArea 
+                    placeholder="Post something" 
+                    id="newBody" 
+                    type="text" 
+                    rows="4" cols="40" 
+                    onChange={(e) => setNewBody(e.target.value)} 
+                    value={newBody} />
+                <br />
+                <button type="submit"> Submit </button>
+            </form>
+*/
+
 
 export default PostNew

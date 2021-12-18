@@ -19,6 +19,7 @@ import { useState, useEffect } from 'react';
 function App() {
   
   const [posts, setPosts] = useState([])
+  const [comments, setComments] = useState([])
   const [jwt, setJwt] = useState("")
   const [user, setUser] = useState({})
   
@@ -27,6 +28,12 @@ function App() {
     fetch("/users/post")
     .then(response => response.json())
     .then(json => setPosts(json))
+  }, [])
+
+  useEffect(() => {
+    fetch("/users/comment")
+    .then(response => response.json())
+    .then(json => setComments(json))
   }, [])
   
 
@@ -52,7 +59,7 @@ function App() {
           <Route path="/login" element={ <Login setJwt={setJwt} setUser={setUser} jwt={jwt} /> } />
 
           <Route exact path="/post" element={ <PostNew  /> } />
-          <Route path="/post/:id" element={ <PostPage /> } />
+          <Route path="/post/:id" element={ <PostPage posts={posts} comments={comments} /> } />
           <Route path="/listofusers" element={ <UserList /> } />
           <Route path="*" element={ <Temp /> } />
 
