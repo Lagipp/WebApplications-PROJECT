@@ -5,7 +5,6 @@ import Login from "./components/Login";
 import PostNew from "./components/PostNew";
 import Header from "./components/Header"
 import Home from "./components/Home"
-//import SinglePost from "./components/SinglePost"
 import PostPage from './components/PostPage';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
@@ -23,6 +22,11 @@ function App() {
   const [user, setUser] = useState({})
   
 
+
+  /*  fetching all posts and comments from the database 
+   *  and sending them as parameters to other components  */
+
+
   useEffect(() => {
     fetch("/users/post/")
     .then(response => response.json())
@@ -36,18 +40,15 @@ function App() {
   }, [])
   
 
-  //handleSubmit={handleSubmit} newBody={newBody} setNewBody={setNewBody}
-  //<h2> {jwt ? `Logged in as ${user.username}!` : ""} </h2>
-
-  //console.log(">> DBG: in client/App.js; posts are: " + JSON.stringify(posts))
-
-
   return (
     <Router >
       <div className="App">
 
         <Header />
         <NavBar />
+
+
+        { /* notifying the user after logging in that it was succesful */ }
 
         <h2> {jwt ? `Logged in as ${user.username}!` : ""} </h2>
 
@@ -70,47 +71,5 @@ function App() {
   );
 }
 
-
-
-// https://reactjs.org/docs/conditional-rendering.html
-  // source for { ?: }
-
-
-  // checking if there is a post; if there is, the ID 
-  // is one larger than the last one in the array
-  // if there's no posts, we assign it ID 1
-
-
-  /*
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    const id = posts.length 
-      ? posts[posts.length - 1].id + 1 
-      : 1;
-    
-    const newPost = { id, body: newBody };
-    const allPosts = [...posts, newPost];
-
-    setPosts(allPosts);
-    setNewBody('');
-  }
-  */
-
-//const [newBody, setNewBody] = useState('');
-
-/*
-  const [posts, setPosts] = useState([
-    {
-      id: 1,
-      body: "print('Hello World!')"
-    },
-
-    {
-      id: 2,
-      body: "print(f'Meaning of life: {value}')"
-    }
-  ])
-*/
 
 export default App;

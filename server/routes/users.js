@@ -12,10 +12,6 @@ const validateToken = require("../auth/validateToken.js");
 
 
 
-
-/* GET users listing. */
-
-
 router.post('/login', 
   
   (req, res, next) => {
@@ -31,12 +27,10 @@ router.post('/login',
         bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
           if(err) throw err;
           if(isMatch) {
-            //console.log(">> DEBUG: inside isMatch of 'users.js'")
             const jwtPayload = {
               id: user._id,
               username: user.username
             }
-            //console.log(">> DEBUG: Process.env.secret: " + process.env.SECRET)
             jwt.sign(
               jwtPayload,
               process.env.SECRET,
@@ -44,9 +38,6 @@ router.post('/login',
                 expiresIn: 120
               },
               (err, token) => {
-                //console.log(">> DEBUG: JWT.sign was succesfull!")
-                //console.log("<< DEBUG: token has value: " + token)
-                //console.log("")
                 res.json({success: true, token});
               }
             );
@@ -204,43 +195,5 @@ router.post("/comment/:id", (req, res, next) =>
     )
   })
 })
-
-//const post = posts.find(post => (post.id).toString() === id);
-
-/*
-router.get('post/:id', (req, res, next) => {
-  console.log(">>dbg: inside router.get('post/:id'), req.params.id =" + req.params.id)
-
-  const desiredPost = Post.findById(req.params.id)
-  
-  Comment.find({OGpostID: req.params.id}, (err, commentsAll) => {
-    console.log("<< dbg: inside 'Comment.find' in router.get('post/:id')")
-
-    if(err) throw err;
-    console.log("found comments are: " + commentsAll)
-    return res.json({posts: desiredPost, comments: commentsAll })
-  })
-});
-*/
-
-/*
-router.post('post/:id', (req, res, next) => {
-
-  const desiredUser = User.findById(req.params.id)
-
-
-  Comment.create(
-    {
-      OGpostID: req.params.id,
-      commentbody: req.body.commentbody,
-      commentuser: desiredUser.username
-    },
-    (err, ok) => {
-      if(err) throw err;
-      return res.json({message: "comment creation succesfully"});
-    }
-  );
-});
-*/
 
 module.exports = router;

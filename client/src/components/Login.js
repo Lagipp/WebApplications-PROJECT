@@ -1,6 +1,14 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
+
+
+/*  Function that searches the database for a registered user 
+ *  and logging in if the input fields of the form match
+ *  the user in the database. Also saving the login as JWT    */
+
+
+
 const Login = ({ setJwt, setUser, jwt} ) => {
 
     const[userData, setUserData] = useState({})
@@ -19,14 +27,13 @@ const Login = ({ setJwt, setUser, jwt} ) => {
         })
         .then(response => response.json())
         .then(data => {
-            //console.log(">> DEBUG: DATA TOKEN IS " + data.token)
             
+
+            /* authenticating the user if the login is succesful */
+
             if(data.token) {
                 setJwt(data.token)
                 setUser(JSON.parse(Buffer.from(data.token.split(".")[1], "base64").toString()))
-
-                //console.log(">> DEBUG: USERNAME IS : " + userData.username)
-                //console.log(">> ''SECOND'' DEBUG: data.token is " + data.token)
             }
         })  
     }
@@ -35,7 +42,6 @@ const Login = ({ setJwt, setUser, jwt} ) => {
         setUserData({...userData, [event.target.name]: event.target.value})
     }
 
-    //<h2> {jwt ? `Logged in as ${userData.username}!` : "Login page"} </h2>
 
     return (
         <div>

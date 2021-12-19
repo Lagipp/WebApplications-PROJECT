@@ -1,5 +1,8 @@
 import React from 'react'
 
+
+/*  Typical footer  */
+
 const Footer = () => {
     return (
         <footer className="Footer">

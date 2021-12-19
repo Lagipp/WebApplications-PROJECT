@@ -2,6 +2,11 @@ import { useState } from "react"
 import { useParams } from 'react-router-dom'
 
 
+/*  Function that allows authenticated users to post comments 
+ *  under an already-made post. Comment is assigned the same 
+ *  ID as the post it is being commented under.                */
+
+
 const PostComment = () => {
 
     const { id } = useParams()

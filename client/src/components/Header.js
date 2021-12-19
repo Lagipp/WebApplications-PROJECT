@@ -1,5 +1,8 @@
 import React from 'react'
 
+
+/*  Typical header  */
+
 const Header = () => {
     return (
         <header className="Header"> 

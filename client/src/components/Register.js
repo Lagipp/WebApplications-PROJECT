@@ -1,6 +1,10 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
+
+/*  function for registering new users  */
+
+
 const Register = () => {
 
     const[userData, setUserData] = useState({})

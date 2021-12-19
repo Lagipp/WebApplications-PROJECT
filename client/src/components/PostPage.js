@@ -1,58 +1,61 @@
-//import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom';
 import PostComment from './PostComment';
-//import { Card } from 'react-bootstrap'
+
+
+/*  Rendering the single post that has the same ID as the parameters
+ *  in the URL. Also showing only the comments that have the matching ID  */
 
 
 const PostPage = ( {posts, comments} ) => {
 
     const { id } = useParams();
     const post = posts.find(p => (p.postID).toString() === id);
-    const comment = comments.find(c => (c.OGpostID).toString() === id);
 
-/*
-    console.log("comments found are : " + JSON.stringify(comment))
-    console.log("comment.OGpostID is : " + JSON.stringify(comment.OGpostID)) */
-    //console.log("comment.commentbody is : " + JSON.stringify(comment.commentbody))
-    console.log("comment is : " + JSON.stringify(comment))
-    console.log("comment.commentbody is : " + JSON.stringify(comment.commentbody))
 
-/*    
-{comment.map(com => <Card key={com.OGpostID} >
-                            <Card.Body>
-                                <Card.Text>
-                                    {com.commentbody}
-                                </Card.Text>
-                            </Card.Body>
-                        </Card> )}
-*/
+    // https://stackoverflow.com/questions/38618088/how-to-find-multiple-elements-in-array-javascript-es6/38618116
+    // src for the 'forEach()' function 
+    
+
+    /*  picking only the comments that match the ID of the post that is being viewed  */
+
+    let AllComments = []
+    comments.forEach(c => {if ((c.OGpostID) === post.postID) AllComments.push(c.commentbody);})
 
 
     return (
+        <>
         <div className="PostPage">
             
            <article>
             {post &&
                 <>
-                <h2> Post body for post # {post.postID} </h2>
+                <h2> Post contents: </h2>
                 <pre> {post.postbody} </pre>
                 <br />
                 <h2> Comments: </h2>
 
-                {comment &&
+
+                {/* checking if the post has any comments under it 
+                  * with a matching ID. (= if anyone has left a comment) */}
+
+                {AllComments.length !== 0 && 
                     <>
-                    <div>
-                        <h4> comments with ID of {comment.OGpostID}</h4>
-                        <p> {comment.commentbody} </p>
-                        
+                    <div className="CommentsList">
+                        <ul> 
+                            {AllComments.map(com => 
+                            <li key={com} >
+                                   <p> {com} </p>
+                            </li>)}
+                        </ul>
+                    
+
                     </div>
                     </>
                 }
 
-                {!comment &&
+                {AllComments.length === 0 &&
                     <>
                     <h4> No comments found for this post</h4>
-                    <p> shit sucks :/ </p>
                     </>
                 }
 
@@ -67,11 +70,15 @@ const PostPage = ( {posts, comments} ) => {
                 </>
             }
             </article>
+            <br />
+        </div>
 
+        <div>
             <nav>
                 <Link to="/">Go back to index</Link>
             </nav>
         </div>
+        </>
     )
 }
 
