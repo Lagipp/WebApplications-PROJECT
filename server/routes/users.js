@@ -19,11 +19,18 @@ router.post('/login',
     console.log("*******************************************")
     console.log(">> DEBUG: req.body of /login router.post:" + JSON.stringify(req.body));
 
+
+    /* finding a user in the database */
+
     User.findOne({username: req.body.username}, (err, user) => {
       if(err) throw err;
       if(!user) {
         return res.status(403).json({message: "Login failed"});
       } else {
+
+        /* checking if the password of the login-form matches the database  */
+        /* if the check is succesful, enabling jsonwebtoken for the session */
+
         bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
           if(err) throw err;
           if(isMatch) {
@@ -42,7 +49,6 @@ router.post('/login',
               }
             );
 
-            //res.json({success: true});    // TOMMI KUNNARI HELPED ME BY SAYING THIS LINE NEEDS TO BE REMOVED!!!!!!!!
             console.log("")
             console.log(`<< DEBUG: succesfully logged in as: '${req.body.username}' with password: '${req.body.password}'`)
             console.log("*******************************************")
@@ -53,6 +59,8 @@ router.post('/login',
     })
 });
 
+
+/* creating a new user into the database */
 
 router.post('/register', 
   body("username").isLength({min: 3}).trim().escape(),
@@ -65,6 +73,9 @@ router.post('/register',
       return res.status(400).json({errors: errors.array()});
     }
 
+
+    /* checking if there exists a user with the username */
+
     User.findOne({username: req.body.username}, (err, user) => 
     {
       if(err) { console.log(err); throw err; };
@@ -74,6 +85,10 @@ router.post('/register',
         return res.status(403).json({username: "Username already in use"});
         
       } else 
+
+
+      /* if the username is free, hashing the password and creating the user */
+
       {
         bcrypt.genSalt(10, (err, salt) => 
         {
@@ -102,6 +117,9 @@ router.post('/register',
 
 // validateToken,
 
+
+/* searching for any posts from the database */
+
 router.get("/post", (req, res, next) => {
   Post.find({}, (err, posts) => 
   {
@@ -118,6 +136,8 @@ router.get("/post", (req, res, next) => {
 })
 
 
+/* creating a new post into the database */
+
 router.post("/post", (req, res, next) => 
 {
   
@@ -126,6 +146,11 @@ router.post("/post", (req, res, next) =>
     if(err) return next(err);
 
     console.log("<< DBG: posts.length = " + posts.length)
+
+
+    /* checking if any posts already exist */
+    /* if there are no posts, the ID of the new one will be 1 */
+    /* if there are posts, the ID is 1 bigger than the last post's ID in the database */
 
     let id = posts.length
     ? posts[posts.length - 1].postID + 1
@@ -148,6 +173,8 @@ router.post("/post", (req, res, next) =>
 })
 
 
+/* searching for any comments from the database */
+
 router.get("/comment", (req, res, next) => {
   Comment.find({}, (err, comments) => 
   {
@@ -164,6 +191,8 @@ router.get("/comment", (req, res, next) => {
 })
 
 
+/* creating a new comment into the database */
+
 router.post("/comment/:id", (req, res, next) => 
 {
   
@@ -171,6 +200,7 @@ router.post("/comment/:id", (req, res, next) =>
   {
     if(err) return next(err);
 
+    /*
     console.log("")
     console.log("<< DBG: comments.length = " + comments.length)
     console.log(">> req.params.id has value: " + req.params.id)
@@ -178,9 +208,18 @@ router.post("/comment/:id", (req, res, next) =>
     console.log("<< req.body.OGpostID has value: " + JSON.stringify(req.body.OGpostID))
     console.log("<< req.body.commentbody has value: " + JSON.stringify(req.body.commentbody))
     console.log("")
+    */
+
+
+    /* assigning the comment the same ID that the post has */
+    /* e.g.: if commenting under /post/2, the new comment's ID will be 2 */
+
+    /* we can use this later to match all comments with the same ID as
+     * the post to the same page */
 
     let id = req.params.id
     
+
     Comment.create(
       {
         OGpostID: id,

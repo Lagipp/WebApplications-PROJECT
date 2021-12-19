@@ -15,6 +15,8 @@ var apiRouter = require('./routes/api');
 var app = express();
 
 
+/* connecting to the database */
+
 const mongoDB = "mongodb://localhost:27017/webappdb"
 mongoose.connect(mongoDB);
 mongoose.Promise = Promise;
@@ -29,6 +31,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+/* enabling cors */
 
 app.use(cors({origin: "http://localhost:3000", optionsSuccessStatus: 200}))
 

@@ -1,6 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
+
+/*  static data used in testing  */
+/*  TODO: remove this shit       */
+
+
+
 const data =[
     {"id": 1, "body": "print('Hello World!')"},
     {"id": 2, "body": "print(f'Meaning of life: {value}')"},
