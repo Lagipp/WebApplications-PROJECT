@@ -6,7 +6,7 @@ import PostComment from './PostComment';
  *  in the URL. Also showing only the comments that have the matching ID  */
 
 
-const PostPage = ( {posts, comments} ) => {
+const PostPage = ( {posts, comments, jwt} ) => {
 
     const { id } = useParams();
     const post = posts.find(p => (p.postID).toString() === id);
@@ -27,17 +27,21 @@ const PostPage = ( {posts, comments} ) => {
         <div className="PostPage">
             
            <article>
+
+
+            {/* rendering a post if it exists */}
+
             {post &&
                 <>
                 <h2> Post contents: </h2>
                 <pre> {post.postbody} </pre>
                 <br />
-                <h2> Comments: </h2>
 
 
                 {/* checking if the post has any comments under it 
                   * with a matching ID. (= if anyone has left a comment) */}
 
+                <h2> Comments: </h2>
                 {AllComments.length !== 0 && 
                     <>
                     <div className="CommentsList">
@@ -59,16 +63,29 @@ const PostPage = ( {posts, comments} ) => {
                     </>
                 }
 
-                <PostComment />
+
+                { /* checking to see if the user is logged in (if JWT exists) */ }
+                { /* if they are, they can leave a new comment. */ }
+
+                {jwt 
+                ?
+                    <PostComment />
+                :
+                   <> <br/> <h3> You have to be logged in to leave a comment! </h3> </>
+                }
+
                 <br />
                 </>
             }
+
+
             {!post &&
                 <>
                 <h2> No posts found </h2>
                 <p> Try again :( </p>
                 </>
             }
+
             </article>
             <br />
         </div>
@@ -81,48 +98,6 @@ const PostPage = ( {posts, comments} ) => {
         </>
     )
 }
-
-    //const [post, setPost] = useState("");
-
-    //const [comments, setComments] = useState([])
-    //const [post, setPost] = useState({})
-    /*
-    useEffect(() => {
-        fetch("/users/post/" + id)
-        .then(response => response.json())
-        .then(json => {
-            setComments(json.comments);
-            setPost(json.posts);
-            console.log("<< dbg: while fetching comments: " + json.comments)
-            console.log("<< dbg: while fetching post: " + json.posts)
-        })
-    }, [id])
-    */
-
-    /*
-    useEffect(() => {
-        fetch("/users/post/" + id)
-        .then(response => response.json())
-        .then(json => {
-            setPost(json);
-            console.log("inside fetch() of PostPage.js, JSON = " + json)})
-
-    }, [id])
-    */
-
-/*
-            <>
-            <h2> Post body: </h2>
-            <pre> {post.postbody} </pre>
-            <br />
-            <h2> Comments: </h2>
-            <p> comment-field for post {post.postID}, WIP </p>
-            </>
-*/
-
-/*
-
-            */
 
 
 export default PostPage

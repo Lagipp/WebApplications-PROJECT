@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 /*  Function that allows authenticated users to make new posts  */
 
 
-const PostNew = () => {
+const PostNew = ({jwt}) => {
 
     const[post, setPost] = useState([])
 
@@ -36,12 +36,28 @@ const PostNew = () => {
 
     return (
         <div className="PostNew">
-            <h2> Make a new post </h2>
 
-            <form className="CreatePostForm" onSubmit={submit} onChange={handleChange}>
-                <input type="text" name="postbody" />
-                <input type="submit" />
-            </form>
+
+            {/* checking to see whether the user is logged in. 
+              * if they are, they can make a new post */}
+
+            {jwt 
+            ? 
+                <> 
+                    <h2> Make a new post </h2>
+
+                    <form className="CreatePostForm" onSubmit={submit} onChange={handleChange}>
+                        <input type="text" name="postbody" />
+                        <input type="submit" />
+                    </form>
+                </>
+
+            : 
+                <> 
+                    <br /> 
+                    <h3> You have to be logged in to make a post! </h3> 
+                </>
+            }
 
             <br />
             <nav>

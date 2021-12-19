@@ -70,11 +70,15 @@ body {
   background-color: white;
   display: flex;
   justify-content: center;
-  
-  /*align-items: center;*/
-
+  text-align: center;
+  box-shadow: 0 0 3px #D3D3D3;
   margin-bottom: 1rem;
   
+}
+
+.SinglePost p {
+  position: relative;
+  width: auto;
 }
 
 .SinglePost:hover {
@@ -126,6 +130,18 @@ body {
 
 .PostPage p, pre {
   font-size: 16px;
+  display: block;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+.PostPage p {
+  box-shadow: 0 0 3px #D3D3D3;
+}
+
+.SinglePost pre {
+  overflow-wrap: break-word;
+  max-width: 100%;
 }
 
 .CommentsList ul {
@@ -137,4 +153,5 @@ body {
   display: block;
   text-align: center;
   width: auto;
+  overflow-wrap: break-word;
 }

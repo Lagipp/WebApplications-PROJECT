@@ -31,13 +31,13 @@ function App() {
     fetch("/users/post/")
     .then(response => response.json())
     .then(json => setPosts(json))
-  }, [])
+  }, [posts])
 
   useEffect(() => {
     fetch("/users/comment/")
     .then(response => response.json())
     .then(json => setComments(json))
-  }, [])
+  }, [comments])
   
 
   return (
@@ -58,8 +58,8 @@ function App() {
           <Route path="/register" element={ <Register /> } />
           <Route path="/login" element={ <Login setJwt={setJwt} setUser={setUser} jwt={jwt} /> } />
 
-          <Route exact path="/post" element={ <PostNew  /> } />
-          <Route path="/post/:id" element={ <PostPage posts={posts} comments={comments} /> } />
+          <Route exact path="/post" element={ <PostNew  jwt={jwt}/> } />
+          <Route path="/post/:id" element={ <PostPage posts={posts} comments={comments} jwt={jwt}/> } />
           <Route path="*" element={ <Temp /> } />
 
         </Routes>

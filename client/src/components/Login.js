@@ -46,13 +46,22 @@ const Login = ({ setJwt, setUser, jwt} ) => {
     return (
         <div>
 
-            <h2> Login page </h2>
 
-            <form className="LoginForm" onSubmit={submit} onChange={handleChange}>
-                <input type="text" name="username" />
-                <input type="password" name="password" />
-                <input type="submit" />
-            </form>
+            {/* hiding the login option from the user if the login was succesfull */}
+
+            {jwt 
+            ? "" 
+            : 
+                <>
+                    <h2> Login page </h2>
+
+                    <form className="LoginForm" onSubmit={submit} onChange={handleChange}>
+                        <input type="text" name="username" />
+                        <input type="password" name="password" />
+                        <input type="submit" />
+                    </form>
+                </>
+            }
 
             <br />
             <nav>
